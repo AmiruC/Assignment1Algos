@@ -15,7 +15,8 @@ class ArrayDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
-        pass
+        
+        self.array = []
 
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
@@ -35,12 +36,12 @@ class ArrayDictionary(BaseDictionary):
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
 
-        a_list = []
+        # a_list = []
         for i in range(len(words_frequencies)):
-            a_list.append(tuple((words_frequencies[i].word, words_frequencies[i].frequency)))
+            self.array.append(tuple((words_frequencies[i].word, words_frequencies[i].frequency)))
             
 
-        print(a_list)
+        print(self.array)
 
 
         return 0 
@@ -53,20 +54,25 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        # foundVal = 0
+        
+        # def binary_search(Names, key):
+        
+        # Names should be self.array
+    
+        low = 0
+        high = len(self.array) - 1
 
-        # for j in range(words_frequencies):
+        while high >= low:
+            mid = (high + low) // 2
+            if self.array[mid] < key:
+                low = mid + 1
+            elif self.array[mid][0] > key:
+                high = mid - 1
+            else:
+                return mid
+            
+        return -1 # not found
 
-        #         if (words_frequencies[j].word
-        # else:
-        #          foundVal = 0
-
-        # return foundVal
-
-
-        # TO BE IMPLEMENTED
-
-        return 0
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
