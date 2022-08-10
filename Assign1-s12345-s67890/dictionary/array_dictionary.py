@@ -38,7 +38,8 @@ class ArrayDictionary(BaseDictionary):
        
         for i in words_frequencies:
             print(i.word)
-            print(i.frequency )
+            print(i.frequency)
+            
 
         return 0 
         # TO BE IMPLEMENTED
@@ -50,6 +51,9 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
+        for i in range(lst):
+
+
         # TO BE IMPLEMENTED
 
         return 0
