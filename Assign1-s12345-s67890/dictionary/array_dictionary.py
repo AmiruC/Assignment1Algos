@@ -23,19 +23,23 @@ class ArrayDictionary(BaseDictionary):
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
+
         lst = len(words_frequencies)
-        for i in words_frequencies:
-            #receiving all 20 items for the datatfile(sameDataToy.txt)
-         for j in range(0, lst-i-1):
-             if (i.word > i.word):
-                # temp = words_frequencies[j]
-                # words_frequencies[j]= words_frequencies[j + 1]
-                # words_frequencies[j + 1]= temp
+        
+        for i in range(lst):
 
+            for j in range(lst - i - 1):
 
-        # for i in words_frequencies:
-        #     print(i.word)
+                if (words_frequencies[j].word > words_frequencies[j + 1].word):
+                        temp = words_frequencies[j].word
+                        words_frequencies[j].word = words_frequencies[j + 1].word
+                        words_frequencies[j + 1].word = temp
+
        
+        for i in words_frequencies:
+            print(i.word)
+            print(i.frequency )
+
         return 0 
         # TO BE IMPLEMENTED
 
