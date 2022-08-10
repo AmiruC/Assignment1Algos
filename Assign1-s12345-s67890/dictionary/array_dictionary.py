@@ -35,11 +35,13 @@ class ArrayDictionary(BaseDictionary):
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
 
-       
-        for i in words_frequencies:
-            print(i.word)
-            print(i.frequency)
+        a_list = []
+        for i in range(len(words_frequencies)):
+            a_list.append(tuple((words_frequencies[i].word, words_frequencies[i].frequency)))
             
+
+        print(a_list)
+
 
         return 0 
         # TO BE IMPLEMENTED
@@ -51,7 +53,15 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        for i in range(lst):
+        # foundVal = 0
+
+        # for j in range(words_frequencies):
+
+        #         if (words_frequencies[j].word
+        # else:
+        #          foundVal = 0
+
+        # return foundVal
 
 
         # TO BE IMPLEMENTED
