@@ -36,17 +36,11 @@ class ArrayDictionary(BaseDictionary):
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
 
-        # a_list = []
         for i in range(len(words_frequencies)):
             self.array.append(tuple((words_frequencies[i].word, words_frequencies[i].frequency)))
             
-
-        print(self.array)
-
-
-        return 0 
-        # TO BE IMPLEMENTED
-
+        # print(self.array)
+        
 
     def search(self, word: str) -> int:
         """
@@ -54,24 +48,21 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-        
-        # def binary_search(Names, key):
-        
-        # Names should be self.array
     
         low = 0
         high = len(self.array) - 1
 
         while high >= low:
             mid = (high + low) // 2
-            if self.array[mid] < key:
+            if self.array[mid][0] < word:
                 low = mid + 1
-            elif self.array[mid][0] > key:
+            elif self.array[mid][0] > word:
                 high = mid - 1
             else:
-                return mid
+                return self.array[mid][1]       # returns frequency
+        
             
-        return -1 # not found
+        return -1    # not found
 
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
@@ -80,9 +71,37 @@ class ArrayDictionary(BaseDictionary):
         @param word_frequency: (word, frequency) to be added
         :return: True whether succeeded, False when word is already in the dictionary
         """
-        # TO BE IMPLEMENTED
+        
+        word = word_frequency.word
+        # print(word, '\n')
+        
+        low = 0
+        high = len(self.array) - 1
+        
+        while high >= low:
+            mid = (high + low) // 2
+            if self.array[mid][0] < word:
+                low = mid + 1
+            elif self.array[mid][0] > word:
+                high = mid - 1
+            else:
+                
+                # Returns false because this is the branch
+                # executed when the word is found, thus already
+                # existing in the dictionary.
+                
+                return False
+        
+        
+        # Mid is the index that the search stops at, having
+        # not found the word. In this case, that would
+        # be where the word should be inserted.
+        
+        self.array.insert(mid, tuple((word_frequency.word, word_frequency.frequency)))
+        print(self.array)
 
-        return False
+        return True
+    
 
     def delete_word(self, word: str) -> bool:
         """
@@ -90,9 +109,23 @@ class ArrayDictionary(BaseDictionary):
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
         """
-        # find the position of 'word' in the list, if exists, will be at idx-1
         
-        # TO BE IMPLEMENTED
+        # print("To be deleted --- ", word, '\n')
+        
+        low = 0
+        high = len(self.array) - 1
+        
+        while high >= low:
+            mid = (high + low) // 2
+            if self.array[mid][0] < word:
+                low = mid + 1
+            elif self.array[mid][0] > word:
+                high = mid - 1
+            else:
+                                
+                del self.array[mid]
+                # Returns true because word to be deleted is found
+                return True
         
 
         return False
@@ -104,4 +137,32 @@ class ArrayDictionary(BaseDictionary):
         @param prefix_word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'prefix_word'
         """
-        return []
+        
+        ac = []
+        three_most_frequent_words_from_prefix_word = []
+        
+        for i in self.array:
+            if prefix_word in i[0][0:len(prefix_word)]:     # Checks for prefix in words
+               ac.append(i)
+        
+        
+        # Selection sort: Finds the minimum index per iteration of the inner
+        # loop and then swaps it with the current index traversed in the outer loop.  
+        
+        if len(ac) > 0:
+            for i in range(len(ac)):
+                min = i
+                for j in range(i + 1, len(ac)):
+                    if ac[i][1] > ac[j][1]:
+                        min = j
+                    ac[min], ac[i] = ac[i], ac[min]
+
+            if len(ac) <= 4:
+                ac = ac[0:len(ac)]
+            else:
+                ac = ac[0:3]
+
+            for i in ac:
+                three_most_frequent_words_from_prefix_word.append(WordFrequency(i[0], i[1]))
+        
+        return three_most_frequent_words_from_prefix_word

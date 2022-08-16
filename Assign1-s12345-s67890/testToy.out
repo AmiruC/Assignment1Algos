@@ -1,0 +1,15 @@
+Found 'cute' with frequency 400
+Delete 'cute' succeeded
+NOT Found 'cute'
+NOT Found 'book'
+Add 'book' succeeded
+Found 'book' with frequency 10000
+Found 'apple' with frequency 15
+Delete 'apple' succeeded
+NOT Found 'apple'
+Delete 'apple' failed
+Autocomplete for 'c': [ calm: 5  cub: 40  cut: 500  cuts: 5000  ]
+Autocomplete for 'cut': [ cut: 500  cuts: 5000  ]
+Autocomplete for 'farms': [ ]
+Delete 'cut' succeeded
+Autocomplete for 'cut': [ cuts: 5000  ]
