@@ -9,7 +9,7 @@ class ListNode:
 
     def __init__(self, word_frequency: WordFrequency):
         self.word_frequency = word_frequency
-        self.next = None
+        # self.next = None
 
 # ------------------------------------------------------------------------
 # This class  is required TO BE IMPLEMENTED
@@ -24,7 +24,8 @@ class LinkedListDictionary(BaseDictionary):
     def __init__(self):
         # TO BE IMPLEMENTED
         self.head = None
-        self.tail = None
+        # Initialize next as null
+        self.next = None 
         pass
 
 
@@ -47,23 +48,24 @@ class LinkedListDictionary(BaseDictionary):
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
      
+     #adding nodes
         for i in range(len(words_frequencies)):
             current = self.head #None
             # Adds to the head node
             if current == None:
                 self.head = tuple((words_frequencies[i].word, words_frequencies[i].frequency)) 
-
+                print(self.head)
             #If head node is full    
             else:
-                temp = self.head
-                while(self.next != None):
-                    new = LinkedListDictionary(words_frequencies)
-                    new.tail = self.tail
-                    self.tail = new
-         
-           
-                
+               #add to the next 
+                # 1. Create a new node
+                new_node = tuple((words_frequencies[i].word, words_frequencies[i].frequency))                
+                #assignst the next node to the new data
+                self.next = new_node
+                print(self.next)
 
+     
+       
       
        
 
@@ -75,12 +77,10 @@ class LinkedListDictionary(BaseDictionary):
 
         """
 
-        # TO BE IMPLEMENTED
-        # node = self.head
-        # while node is not None:
-        #     print(word_frequency.frequency) 
-        # node = node.next
-        # return 0
+
+        return 0
+
+
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
