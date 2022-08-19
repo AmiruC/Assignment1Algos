@@ -23,6 +23,8 @@ class LinkedListDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
+        self.head = None
+        self.tail = None
         pass
 
 
@@ -32,17 +34,53 @@ class LinkedListDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
         # TO BE IMPLEMENTED
+        listDictionary = LinkedListDictionary() #defining a dictionary linked list 
 
+
+        lst = len(words_frequencies)
+        
+        # Sorts the Word_frequency list 
+        for i in range(lst):
+            for j in range(lst - i - 1):
+                if (words_frequencies[j].word > words_frequencies[j + 1].word):
+                        temp = words_frequencies[j].word
+                        words_frequencies[j].word = words_frequencies[j + 1].word
+                        words_frequencies[j + 1].word = temp
+     
+        for i in range(len(words_frequencies)):
+            current = self.head #None
+            # Adds to the head node
+            if current == None:
+                self.head = tuple((words_frequencies[i].word, words_frequencies[i].frequency)) 
+
+            #If head node is full    
+            else:
+                temp = self.head
+                while(self.next != None):
+                    new = LinkedListDictionary(words_frequencies)
+                    new.tail = self.tail
+                    self.tail = new
+         
+           
+                
+
+      
+       
 
     def search(self, word: str) -> int:
         """
         search for a word
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
+
         """
 
         # TO BE IMPLEMENTED
-        return 0
+        # node = self.head
+        # while node is not None:
+        #     print(word_frequency.frequency) 
+        # node = node.next
+        # return 0
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """

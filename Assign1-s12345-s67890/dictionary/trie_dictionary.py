@@ -8,8 +8,6 @@ from dictionary.word_frequency import WordFrequency
 # __author__ = 'Son Hoang Dau'
 # __copyright__ = 'Copyright 2022, RMIT University'
 # ------------------------------------------------------------------------
-
-
 # Class representing a node in the Trie
 class TrieNode:
 
@@ -24,6 +22,7 @@ class TrieDictionary(BaseDictionary):
 
     def __init__(self):
         # TO BE IMPLEMENTED
+        self.root = TrieNode("")
         pass
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
@@ -32,7 +31,8 @@ class TrieDictionary(BaseDictionary):
         @param words_frequencies: list of (word, frequency) to be stored
         """
         # TO BE IMPLEMENTED
-
+        node = self.root
+        
 
     def search(self, word: str) -> int:
         """
