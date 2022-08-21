@@ -95,8 +95,23 @@ class LinkedListDictionary(BaseDictionary):
         :return: True whether succeeded, False when word is already in the dictionary
         """
 
-        # TO BE IMPLEMENTED
-        return False
+        new_node = tuple((word_frequency[i].word, word_frequency[i].frequency)) 
+#Needs to check if the word is already in the array for search needs to work
+        if self.search(word_frequency.word) == 0:
+            return False
+        else:
+            if not self.head:
+                self.self = new_node
+                
+            else:
+                new_node.set_next(self.m_head)
+                self.self = new_node
+
+            self.length+=1
+            return True
+            
+
+        
 
     def delete_word(self, word: str) -> bool:
         """
