@@ -9,7 +9,7 @@ class ListNode:
 
     def __init__(self, word_frequency: WordFrequency):
         self.word_frequency = word_frequency
-        # self.next = None
+        self.next = None
 
 # ------------------------------------------------------------------------
 # This class  is required TO BE IMPLEMENTED
@@ -26,6 +26,7 @@ class LinkedListDictionary(BaseDictionary):
         self.head = None
         # Initialize next as null
         self.next = None 
+        self.length = 0
         pass
 
 
@@ -48,23 +49,19 @@ class LinkedListDictionary(BaseDictionary):
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
      
-     #adding nodes
+     #adding nodes to the linked list
+        new_node = tuple((words_frequencies[i].word, words_frequencies[i].frequency)) 
         for i in range(len(words_frequencies)):
-            current = self.head #None
-            # Adds to the head node
-            if current == None:
-                self.head = tuple((words_frequencies[i].word, words_frequencies[i].frequency)) 
-                print(self.head)
-            #If head node is full    
+            if not self.head:
+                self.self = new_node
             else:
-               #add to the next 
-                # 1. Create a new node
-                new_node = tuple((words_frequencies[i].word, words_frequencies[i].frequency))                
-                #assignst the next node to the new data
-                self.next = new_node
-                print(self.next)
+                new_node.set_next(self.m_head)
+                self.self = new_node
 
-     
+            self.length+=1
+        
+
+        
        
       
        
@@ -75,7 +72,9 @@ class LinkedListDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
 
-        """
+
+
+
 
 
         return 0
