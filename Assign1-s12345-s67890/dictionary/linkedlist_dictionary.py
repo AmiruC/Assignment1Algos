@@ -71,7 +71,14 @@ class LinkedListDictionary(BaseDictionary):
         search for a word
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
+        """
 
+        # currNode = self.head
+        # for i in range(self.length):
+        #     if currNode.get_value() == value:
+        #         return i
+
+        #     currNode = self.next()
 
 
 
