@@ -1,3 +1,4 @@
+from inspect import stack
 from dictionary.base_dictionary import BaseDictionary
 from dictionary.word_frequency import WordFrequency
 
@@ -49,16 +50,30 @@ class LinkedListDictionary(BaseDictionary):
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
      
-     #adding nodes to the linked list
-        new_node = tuple((words_frequencies[i].word, words_frequencies[i].frequency)) 
-        for i in range(len(words_frequencies)):
-            if not self.head:
-                self.self = new_node
-            else:
-                new_node.set_next(self.m_head)
-                self.self = new_node
+
+
+     #adding nodes to the linked list   
+        for i in range(lst):
+            new_node = tuple((words_frequencies[i].word, words_frequencies[i].frequency)) #new node to hold the data
+
+            if self.head == None:
+                self.head = new_node #adds to the head of the node
+                
+            else: 
+                self.head = self.next
+                self.head = new_node
+                
+                
+        
 
             self.length+=1
+            
+        print('done')
+
+       
+           
+        
+
         
 
         
@@ -68,21 +83,15 @@ class LinkedListDictionary(BaseDictionary):
 
     def search(self, word: str) -> int:
         """
-        search for a word
-        @param word: the word to be searched
-        @return: frequency > 0 if found and 0 if NOT found
-        """
+        # search for a word
+        # @param word: the word to be searched
+        # # @return: frequency > 0 if found and 0 if NOT found
+        # """
 
-        # currNode = self.head
-        # for i in range(self.length):
-        #     if currNode.get_value() == value:
-        #         return i
-
-        #     currNode = self.next()
-
-
-
-
+        temp = self.head
+        for i in range(lst):
+            print(words_frequencies[i].word)
+            temp = self.next
 
         return 0
 
