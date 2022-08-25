@@ -2,13 +2,3 @@ NOT Found 'facial'
 Delete 'facial' failed
 NOT Found 'facial'
 NOT Found 'booming'
-Add 'booming' failed
-NOT Found 'booming'
-Autocomplete for 'boo': [ ]
-Delete 'boom' failed
-Autocomplete for 'boo': [ ]
-NOT Found 'aluminum'
-Autocomplete for 'alum': [ ]
-Delete 'alumna' failed
-Autocomplete for 'alum': [ ]
-Autocomplete for 'alrighty': [ ]
