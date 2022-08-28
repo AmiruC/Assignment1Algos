@@ -149,9 +149,9 @@ class LinkedListDictionary(BaseDictionary):
             for i in range(len(autocompleted)):
                 min = i
                 for j in range(i + 1, len(autocompleted)):
-                    if autocompleted[i].frequency > autocompleted[j].frequency:
+                    if autocompleted[i].frequency < autocompleted[j].frequency:
                         min = j
-                    autocompleted[min], autocompleted[i], autocompleted[i], autocompleted[min]
+                    autocompleted[min], autocompleted[i] = autocompleted[i], autocompleted[min]
 
         
         return autocompleted
