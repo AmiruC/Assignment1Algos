@@ -27,20 +27,18 @@ class ArrayDictionary(BaseDictionary):
 
         lst = len(words_frequencies)
         
+        # Sorting algorithm
         for i in range(lst):
-
             for j in range(lst - i - 1):
-
                 if (words_frequencies[j].word > words_frequencies[j + 1].word):
                         temp = words_frequencies[j].word
                         words_frequencies[j].word = words_frequencies[j + 1].word
                         words_frequencies[j + 1].word = temp
 
+
         for i in range(len(words_frequencies)):
             self.array.append(tuple((words_frequencies[i].word, words_frequencies[i].frequency)))
-            
-        # print(self.array)
-        
+                    
 
     def search(self, word: str) -> int:
         """
@@ -48,12 +46,13 @@ class ArrayDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
-    
+            
         low = 0
-        high = len(self.array) - 1
+        high = len(self.array)
 
         while high >= low:
             mid = (high + low) // 2
+            
             if self.array[mid][0] < word:
                 low = mid + 1
             elif self.array[mid][0] > word:
@@ -62,7 +61,7 @@ class ArrayDictionary(BaseDictionary):
                 return self.array[mid][1]       # returns frequency
         
             
-        return -1    # not found
+        return 0    # not found
 
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
@@ -73,13 +72,12 @@ class ArrayDictionary(BaseDictionary):
         """
         
         word = word_frequency.word
-        # print(word, '\n')
         
         low = 0
         high = len(self.array) - 1
         
         while high >= low:
-            mid = (high + low) // 2
+            mid = (high + low) // 2            
             if self.array[mid][0] < word:
                 low = mid + 1
             elif self.array[mid][0] > word:
@@ -91,14 +89,12 @@ class ArrayDictionary(BaseDictionary):
                 # existing in the dictionary.
                 
                 return False
-        
-        
+                
         # Mid is the index that the search stops at, having
         # not found the word. In this case, that would
         # be where the word should be inserted.
         
         self.array.insert(mid, tuple((word_frequency.word, word_frequency.frequency)))
-        print(self.array)
 
         return True
     
@@ -110,7 +106,6 @@ class ArrayDictionary(BaseDictionary):
         @return: whether succeeded, e.g. return False when point not found
         """
         
-        # print("To be deleted --- ", word, '\n')
         
         low = 0
         high = len(self.array) - 1
@@ -153,7 +148,7 @@ class ArrayDictionary(BaseDictionary):
             for i in range(len(ac)):
                 min = i
                 for j in range(i + 1, len(ac)):
-                    if ac[i][1] > ac[j][1]:
+                    if ac[i][1] < ac[j][1]:
                         min = j
                     ac[min], ac[i] = ac[i], ac[min]
 

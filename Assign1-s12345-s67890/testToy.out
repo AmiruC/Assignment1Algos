@@ -8,8 +8,8 @@ Found 'apple' with frequency 15
 Delete 'apple' succeeded
 NOT Found 'apple'
 Delete 'apple' failed
-Autocomplete for 'c': [ calm: 5  cub: 40  cut: 500  cuts: 5000  ]
-Autocomplete for 'cut': [ cut: 500  cuts: 5000  ]
+Autocomplete for 'c': [ cuts: 5000  cut: 500  cub: 40  calm: 5  ]
+Autocomplete for 'cut': [ cuts: 5000  cut: 500  ]
 Autocomplete for 'farms': [ ]
 Delete 'cut' succeeded
 Autocomplete for 'cut': [ cuts: 5000  ]
