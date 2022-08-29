@@ -44,16 +44,25 @@ class TrieDictionary(BaseDictionary):
 
         cur = self.root
        
-        for letter in words_frequencies:
-            word = letter.word
-            for c in word:
-                cur.children[c] = TrieNode()
+        # for letter in words_frequencies:
+        #     word = letter.word
+        #     for c in word:
+        #         cur.children[c] = TrieNode()
+        #     cur.is_last = True
+        
+        for word in words_frequencies:
+            for c in word.word:
+                if c not in cur.children:
+                    cur.children[c] = TrieNode()
+                # print(c, end="")
+                cur = cur.children[c]
+                
+            cur.frequency = word.frequency
+            # print("\n", cur.frequency, '\n')
             cur.is_last = True
-           
+            
+            cur = self.root     # Reset the cur to root nore
 
-
-
-        # TO BE IMPLEMENTED
 
 
     def search(self, word: str) -> int:
@@ -64,20 +73,22 @@ class TrieDictionary(BaseDictionary):
         """
         cur = self.root
 
+        # for c in word:
+        #     if c not in cur.children:
+        #         return 0 
+        #     else:
+        #         return 2 #Needs to return the frequency 
+               
         for c in word:
             if c not in cur.children:
-            
-                return 0 
-            else:
-                
-                return 2 #Needs to return the frequency 
-               
-            
-
-        # TO BE IMPLEMENTED
-
+                return 0
+            cur = cur.children[c]
+ 
+        if cur.is_last:
+            return cur.frequency
+        else:
+            return 0
         
-
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
         """
@@ -86,9 +97,20 @@ class TrieDictionary(BaseDictionary):
         :return: True whether succeeded, False when word is already in the dictionary
         """
        
-        # TO BE IMPLEMENTED
+        cur = self.root
+        
+        for c in word_frequency.word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+            
+        if cur.is_last == False:    # If leaf node (word itself) doesn't exists
+            cur.frequency = word_frequency.frequency
+            cur.is_last = True
+            return True
+        else:
+            return False 
 
-        return False
 
     def delete_word(self, word: str) -> bool:
         """
@@ -97,8 +119,19 @@ class TrieDictionary(BaseDictionary):
         @return: whether succeeded, e.g. return False when point not found
         """ 
         
-        return False
-
+        cur = self.root
+        
+        for c in word:
+            if c not in cur.children:
+                return 0
+            cur = cur.children[c]
+        
+        if cur.is_last == True:
+            cur.is_last = False
+            return True
+        else:
+            return False
+            
 
     def autocomplete(self, word: str) -> [WordFrequency]:
         """
@@ -106,4 +139,19 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
+        
+        # cur = self.root
+        # ac = []
+        
+        # for c in word:
+        #     if c in cur.children:
+        #         cur = cur.children[c]
+        #     else:
+        #         return ac
+        
+        # #  Get all the words splitting from the node of the prefix's length.
+        
+        # for c in cur.children:
+        #     return
+                
         return []
