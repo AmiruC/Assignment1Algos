@@ -1,3 +1,4 @@
+from operator import le, truediv
 from dictionary.base_dictionary import BaseDictionary
 from dictionary.word_frequency import WordFrequency
 
@@ -23,14 +24,35 @@ class TrieNode:
 class TrieDictionary(BaseDictionary):
 
     def __init__(self):
-        # TO BE IMPLEMENTED
-        pass
+       self.root = TrieNode()
+    pass
 
     def build_dictionary(self, words_frequencies: [WordFrequency]):
         """
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
+        lst = len(words_frequencies)
+        # Orders wordfrequencies 
+        for i in range(lst):
+            for j in range(lst - i - 1):
+                if (words_frequencies[j].word > words_frequencies[j + 1].word):
+                        temp = words_frequencies[j].word
+                        words_frequencies[j].word = words_frequencies[j + 1].word
+                        words_frequencies[j + 1].word = temp
+
+
+        cur = self.root
+       
+        for letter in words_frequencies:
+            word = letter.word
+            for c in word:
+                cur.children[c] = TrieNode()
+            cur.is_last = True
+           
+
+
+
         # TO BE IMPLEMENTED
 
 
@@ -40,9 +62,21 @@ class TrieDictionary(BaseDictionary):
         @param word: the word to be searched
         @return: frequency > 0 if found and 0 if NOT found
         """
+        cur = self.root
+
+        for c in word:
+            if c not in cur.children:
+            
+                return 0 
+            else:
+                
+                return 2 #Needs to return the frequency 
+               
+            
+
         # TO BE IMPLEMENTED
 
-        return 0
+        
 
 
     def add_word_frequency(self, word_frequency: WordFrequency) -> bool:
@@ -51,7 +85,7 @@ class TrieDictionary(BaseDictionary):
         @param word_frequency: (word, frequency) to be added
         :return: True whether succeeded, False when word is already in the dictionary
         """
-
+       
         # TO BE IMPLEMENTED
 
         return False
@@ -61,8 +95,8 @@ class TrieDictionary(BaseDictionary):
         delete a word from the dictionary
         @param word: word to be deleted
         @return: whether succeeded, e.g. return False when point not found
-        """
-
+        """ 
+        
         return False
 
 
