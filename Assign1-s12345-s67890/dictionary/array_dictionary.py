@@ -31,14 +31,14 @@ class ArrayDictionary(BaseDictionary):
         for i in range(lst):
             for j in range(lst - i - 1):
                 if (words_frequencies[j].word > words_frequencies[j + 1].word):
-                        temp = words_frequencies[j].word
-                        words_frequencies[j].word = words_frequencies[j + 1].word
-                        words_frequencies[j + 1].word = temp
+                        temp = words_frequencies[j]
+                        words_frequencies[j] = words_frequencies[j + 1]
+                        words_frequencies[j + 1] = temp
 
 
         for i in range(len(words_frequencies)):
             self.array.append(tuple((words_frequencies[i].word, words_frequencies[i].frequency)))
-                    
+            print(words_frequencies[i].word, words_frequencies[i].frequency)      
 
     def search(self, word: str) -> int:
         """
@@ -160,4 +160,4 @@ class ArrayDictionary(BaseDictionary):
             for i in ac:
                 three_most_frequent_words_from_prefix_word.append(WordFrequency(i[0], i[1]))
         
-        return three_most_frequent_words_from_prefix_word
+        return three_most_frequent_words_from_prefix_word[0:3]

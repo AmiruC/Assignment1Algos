@@ -2,11 +2,11 @@ NOT Found 'facial'
 Delete 'facial' failed
 NOT Found 'facial'
 NOT Found 'booming'
-Add 'booming' failed
-NOT Found 'booming'
-Autocomplete for 'boo': [ ]
+Add 'booming' succeeded
+Found 'booming' with frequency 123456
+Autocomplete for 'boo': [ booming: 123456  ]
 Delete 'boom' failed
-Autocomplete for 'boo': [ ]
+Autocomplete for 'boo': [ booming: 123456  ]
 NOT Found 'aluminum'
 Autocomplete for 'alum': [ ]
 Delete 'alumna' failed
