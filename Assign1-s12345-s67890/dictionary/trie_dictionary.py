@@ -132,8 +132,9 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
-                
-        ac = []
+
+        autocompleted_words = []
+        words = []
         cur = self.root
         
         for c in word:
@@ -145,13 +146,18 @@ class TrieDictionary(BaseDictionary):
                     break
             
         if not_found == False:
-            ac = self.traverse(cur)    #  Finds all the nodes following the prefix
+            words = self.traverse(cur)    #  Finds all the nodes following the prefix
             
-            word_frequencies = []   #  Finds all the frequencies associated with the word
-            for i in ac:
+            frequencies = []   #  Finds all the frequencies associated with the word
+            for i in words:
                 freq = self.search(word + i)    #  Add the prefix to the remainder of the letters found from self.traverse() for searching
-                word_frequencies.append(freq)
+                frequencies.append(freq)
+                autocompleted_words.append(WordFrequency(word + i, freq))
+                
         else:
-            return ac      #  Prefix doesn't match any words in Trie, so returns nothing
-                    
-        return ac
+            return []      #  Prefix doesn't match any words in Trie, so returns nothing
+
+
+        autocompleted_words.sort(key = lambda x: x.frequency, reverse=True)
+
+        return autocompleted_words
