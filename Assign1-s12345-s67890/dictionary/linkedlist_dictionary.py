@@ -38,9 +38,9 @@ class LinkedListDictionary(BaseDictionary):
         for i in range(lst):
             for j in range(lst - i - 1):
                 if (words_frequencies[j].word > words_frequencies[j + 1].word):
-                        temp = words_frequencies[j].word
-                        words_frequencies[j].word = words_frequencies[j + 1].word
-                        words_frequencies[j + 1].word = temp
+                        temp = words_frequencies[j]
+                        words_frequencies[j] = words_frequencies[j + 1]
+                        words_frequencies[j + 1] = temp
             
         list_of_nodes = []
         
@@ -154,7 +154,7 @@ class LinkedListDictionary(BaseDictionary):
                     autocompleted[min], autocompleted[i] = autocompleted[i], autocompleted[min]
 
         
-        return autocompleted
+        return autocompleted[0:3]
 
 
 
