@@ -32,36 +32,19 @@ class TrieDictionary(BaseDictionary):
         construct the data structure to store nodes
         @param words_frequencies: list of (word, frequency) to be stored
         """
-        lst = len(words_frequencies)
-        # Orders wordfrequencies 
-        for i in range(lst):
-            for j in range(lst - i - 1):
-                if (words_frequencies[j].word > words_frequencies[j + 1].word):
-                        temp = words_frequencies[j].word
-                        words_frequencies[j].word = words_frequencies[j + 1].word
-                        words_frequencies[j + 1].word = temp
-
 
         cur = self.root
-       
-        # for letter in words_frequencies:
-        #     word = letter.word
-        #     for c in word:
-        #         cur.children[c] = TrieNode()
-        #     cur.is_last = True
         
         for word in words_frequencies:
             for c in word.word:
                 if c not in cur.children:
-                    cur.children[c] = TrieNode()
-                # print(c, end="")
+                    cur.children[c] = TrieNode(letter = c)
                 cur = cur.children[c]
                 
             cur.frequency = word.frequency
-            # print("\n", cur.frequency, '\n')
             cur.is_last = True
             
-            cur = self.root     # Reset the cur to root nore
+            cur = self.root     # Reset the cur to root node
 
 
 
@@ -72,12 +55,6 @@ class TrieDictionary(BaseDictionary):
         @return: frequency > 0 if found and 0 if NOT found
         """
         cur = self.root
-
-        # for c in word:
-        #     if c not in cur.children:
-        #         return 0 
-        #     else:
-        #         return 2 #Needs to return the frequency 
                
         for c in word:
             if c not in cur.children:
@@ -101,11 +78,13 @@ class TrieDictionary(BaseDictionary):
         
         for c in word_frequency.word:
             if c not in cur.children:
+                cur.letter = c
                 cur.children[c] = TrieNode()
             cur = cur.children[c]
             
-        if cur.is_last == False:    # If leaf node (word itself) doesn't exists
+        if cur.is_last == False:    # If leaf node (word itself) doesn't exist
             cur.frequency = word_frequency.frequency
+            cur.letter = c
             cur.is_last = True
             return True
         else:
@@ -131,6 +110,20 @@ class TrieDictionary(BaseDictionary):
             return True
         else:
             return False
+        
+        
+    def traverse(self, TrieNode):
+        
+        ac = []
+         
+        for letter, trie_node in TrieNode.children.items():
+            for char in self.traverse(trie_node):
+                ac.append(letter + char)
+
+        if len(TrieNode.children) == 0:
+            ac.append('')
+        
+        return ac
             
 
     def autocomplete(self, word: str) -> [WordFrequency]:
@@ -139,19 +132,26 @@ class TrieDictionary(BaseDictionary):
         @param word: word to be autocompleted
         @return: a list (could be empty) of (at most) 3 most-frequent words with prefix 'word'
         """
-        
-        # cur = self.root
-        # ac = []
-        
-        # for c in word:
-        #     if c in cur.children:
-        #         cur = cur.children[c]
-        #     else:
-        #         return ac
-        
-        # #  Get all the words splitting from the node of the prefix's length.
-        
-        # for c in cur.children:
-        #     return
                 
-        return []
+        ac = []
+        cur = self.root
+        
+        for c in word:
+            not_found = True
+            for node in cur.children.values():
+                if node.letter == c:
+                    not_found = False
+                    cur = node
+                    break
+            
+        if not_found == False:
+            ac = self.traverse(cur)    #  Finds all the nodes following the prefix
+            
+            word_frequencies = []   #  Finds all the frequencies associated with the word
+            for i in ac:
+                freq = self.search(word + i)    #  Add the prefix to the remainder of the letters found from self.traverse() for searching
+                word_frequencies.append(freq)
+        else:
+            return ac      #  Prefix doesn't match any words in Trie, so returns nothing
+                    
+        return ac
