@@ -78,13 +78,11 @@ class TrieDictionary(BaseDictionary):
         
         for c in word_frequency.word:
             if c not in cur.children:
-                cur.letter = c
-                cur.children[c] = TrieNode()
+                cur.children[c] = TrieNode(letter = c)
             cur = cur.children[c]
             
         if cur.is_last == False:    # If leaf node (word itself) doesn't exist
             cur.frequency = word_frequency.frequency
-            cur.letter = c
             cur.is_last = True
             return True
         else:
@@ -137,7 +135,7 @@ class TrieDictionary(BaseDictionary):
         words = []
         cur = self.root
         
-        for c in word:
+        for c in word:      #  Finds node from which all words with the prefix descend from
             not_found = True
             for node in cur.children.values():
                 if node.letter == c:
@@ -148,16 +146,15 @@ class TrieDictionary(BaseDictionary):
         if not_found == False:
             words = self.traverse(cur)    #  Finds all the nodes following the prefix
             
-            frequencies = []   #  Finds all the frequencies associated with the word
             for i in words:
-                freq = self.search(word + i)    #  Add the prefix to the remainder of the letters found from self.traverse() for searching
-                frequencies.append(freq)
-                autocompleted_words.append(WordFrequency(word + i, freq))
-                
+                freq = self.search(word + i)
+                if freq != 0:
+                    autocompleted_words.append(WordFrequency(word + i, freq))
+                    
         else:
-            return []      #  Prefix doesn't match any words in Trie, so returns nothing
+            return []
 
 
         autocompleted_words.sort(key = lambda x: x.frequency, reverse=True)
-
-        return autocompleted_words
+        
+        return autocompleted_words[:3]
